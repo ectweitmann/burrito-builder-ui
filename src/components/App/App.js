@@ -5,6 +5,7 @@ import topBurrito from '../../top_burrito.png'
 import bottomBurrito from '../../bottom_burrito.png';
 import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
+import 'animate.css';
 
 class App extends Component {
   constructor(props) {
@@ -31,9 +32,9 @@ class App extends Component {
       <main className="App">
         <header>
           <div className="header-stying">
-            <img className="top-burrito" src={topBurrito} />
-            <img className="bottom-burrito" src={bottomBurrito} />
-            <h1>Burrito Builder</h1>
+            <h1 className="animate__animated animate__zoomIn animate_slower">Burrito Builder</h1>
+            <img className="top-burrito animate__animated animate__rotateInDownLeft top-burrito" src={topBurrito} />
+            <img className="bottom-burrito animate__animated animate__rotateInUpRight" src={bottomBurrito} />
           </div>
           <OrderForm addOrder={this.addOrder}/>
         </header>

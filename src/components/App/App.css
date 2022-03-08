@@ -19,12 +19,12 @@ img {
 
 .top-burrito {
   position: absolute;
-  left: 370px;
+  left: 450px;
 }
 
 .bottom-burrito {
   position: absolute;
-  left: 370px;
+  left: 450px;
 }
 
 .App::before {

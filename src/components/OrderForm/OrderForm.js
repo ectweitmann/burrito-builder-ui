@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'animate.css';
 
 class OrderForm extends Component {
   constructor(props) {
