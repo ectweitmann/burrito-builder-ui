@@ -2,14 +2,39 @@
   text-align: center;
 }
 
+.header-stying {
+  display: flex;
+  justify-content: center;
+  align-items:
+}
+
+h1 {
+  margin-bottom: 30px;
+  font-size: xxx-large;
+}
+
+img {
+  width: 100px;
+}
+
+.top-burrito {
+  position: absolute;
+  left: 370px;
+}
+
+.bottom-burrito {
+  position: absolute;
+  left: 370px;
+}
+
 .App::before {
-  width: 100%; 
-  height: 100%;  
+  width: 100%;
+  height: 100%;
   content: '';
   position: absolute;
   top: 0;
   left: 0;
-  opacity: 0.2; 
+  opacity: 0.2;
   z-index: -1;
   background-position: center;
   background-repeat: no-repeat;

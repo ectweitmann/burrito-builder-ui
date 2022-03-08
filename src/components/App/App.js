@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import { getOrders, postOrder } from '../../apiCalls';
+import topBurrito from '../../top_burrito.png'
+import bottomBurrito from '../../bottom_burrito.png';
 import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
@@ -28,7 +30,11 @@ class App extends Component {
     return (
       <main className="App">
         <header>
-          <h1>Burrito Builder</h1>
+          <div className="header-stying">
+            <img className="top-burrito" src={topBurrito} />
+            <img className="bottom-burrito" src={bottomBurrito} />
+            <h1>Burrito Builder</h1>
+          </div>
           <OrderForm addOrder={this.addOrder}/>
         </header>
 
