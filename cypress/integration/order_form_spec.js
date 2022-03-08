@@ -49,4 +49,11 @@ describe('Burrito Builder user flows', () => {
     cy.get('button').contains('Submit Order').click();
     cy.get('.orders-container').children().should('not.have.length', 4);
   });
+
+  it('should not be able to submit form if no ingredients are added to the order', () => {
+    cy.get('input[name=name]').type('Ethan');
+    cy.get('form > p').contains('Order: Nothing selected');
+    cy.get('button').contains('Submit Order').click();
+    cy.get('.orders-container').children().should('not.have.length', 4);
+  });
 });
