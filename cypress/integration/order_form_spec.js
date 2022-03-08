@@ -5,12 +5,22 @@ describe('Feedback Loop login flows', () => {
     cy.wait(['@getOrders']);
   })
 
+  it('should start off with three orderers submitted and an empty order form', () => {
+    cy.get('input[name=name]').should('have.value', '');
+    cy.get('form').children('button').should('have.length', 13);
+    cy.get('form > p').contains('Order: Nothing selected');
+    cy.get('.orders-container').children().should('have.length', 3);
+  })
+
   it('should be able to add their name and ingredients to their order', () => {
     cy.intercept('POST', 'http://localhost:3001/api/v1/orders', { fixture: 'newOrder' }).as('postOrder')
+    cy.get('.orders-container').children().should('have.length', 3);
     cy.get('input[name=name]').type('Ethan');
     cy.get('button[value=carnitas]').click();
+    cy.get('form > p').contains('Order: carnitas');
     cy.get('button').contains('Submit Order').click();
     cy.wait(['@postOrder']);
+    cy.get('.orders-container').children().should('have.length', 4);
     cy.get('.order').last()
       .contains('h3', 'Ethan')
     cy.get('.ingredient-list').last()
