@@ -1,6 +1,6 @@
-describe('Feedback Loop login flows', () => {
+describe('Burrito Builder user flows', () => {
   beforeEach(() => {
-    cy.intercept('http://localhost:3001/api/v1/orders', { fixture: 'orders' }).as('getOrders')
+    cy.intercept('http://localhost:3001/api/v1/orders', { fixture: 'orders' }).as('getOrders');
     cy.visit('http://localhost:3000/?name=&sofritas=');
     cy.wait(['@getOrders']);
   })
@@ -13,17 +13,35 @@ describe('Feedback Loop login flows', () => {
   })
 
   it('should be able to add their name and ingredients to their order', () => {
-    cy.intercept('POST', 'http://localhost:3001/api/v1/orders', { fixture: 'newOrder' }).as('postOrder')
+    cy.intercept('POST', 'http://localhost:3001/api/v1/orders', { fixture: 'newOrder' }).as('postOrder');
     cy.get('.orders-container').children().should('have.length', 3);
     cy.get('input[name=name]').type('Ethan');
     cy.get('button[value=carnitas]').click();
     cy.get('form > p').contains('Order: carnitas');
     cy.get('button').contains('Submit Order').click();
     cy.wait(['@postOrder']);
+    cy.get('input[name=name]').should('have.value', '');
+    cy.get('form > p').contains('Order: Nothing selected');
     cy.get('.orders-container').children().should('have.length', 4);
     cy.get('.order').last()
       .contains('h3', 'Ethan')
     cy.get('.ingredient-list').last()
       .contains('li', 'carnitas');
   });
+
+  it('should maintain submitted orders after page reload', () => {
+    cy.intercept('http://localhost:3001/api/v1/orders', { fixture: 'updatedOrders' }).as('updatedOrders');
+    cy.intercept('POST', 'http://localhost:3001/api/v1/orders', { fixture: 'newOrder' }).as('postOrder');
+    cy.get('.orders-container').children().should('have.length', 3);
+    cy.get('input[name=name]').type('Ethan');
+    cy.get('button[value=carnitas]').click();
+    cy.get('form > p').contains('Order: carnitas');
+    cy.get('button').contains('Submit Order').click();
+    cy.wait(['@postOrder']);
+    cy.reload();
+    cy.wait(['@updatedOrders']);
+    cy.get('.orders-container').children().should('have.length', 4);
+  });
+
+
 });
