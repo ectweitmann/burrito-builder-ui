@@ -12,9 +12,6 @@ class OrderForm extends Component {
 
   handleNameChange = (e) => {
     const { value, name } = e.target;
-    if (!value) {
-      return;
-    }
     this.setState({ [name] : value })
   }
 
